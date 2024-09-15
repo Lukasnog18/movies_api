@@ -1,0 +1,153 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "FilmesTop API",
+      "version": "1.0",
+      "description": "API para alugar e avaliar filmes."
+    },
+    "host": "127.0.0.1:5000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/movies/{genre_name}": {
+        "get": {
+          "summary": "Lista filmes por gênero",
+          "description": "Lista todos os filmes disponíveis em um gênero específico.",
+          "parameters": [
+            {
+              "name": "genre_name",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Nome do gênero para filtrar os filmes."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lista de filmes retornada com sucesso."
+            },
+            "404": {
+              "description": "Nenhum filme encontrado."
+            }
+          }
+        }
+      },
+      "/movies/{movie_id}": {
+        "get": {
+          "summary": "Detalhes do filme",
+          "description": "Retorna os detalhes de um filme específico.",
+          "parameters": [
+            {
+              "name": "movie_id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID do filme"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Detalhes do filme retornados com sucesso."
+            },
+            "404": {
+              "description": "Filme não encontrado."
+            }
+          }
+        }
+      },
+      "/rent/{user_id}/{movie_id}": {
+        "post": {
+          "summary": "Alugar um filme",
+          "description": "Permite que um usuário alugue um filme.",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID do usuário que está alugando o filme"
+            },
+            {
+              "name": "movie_id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID do filme a ser alugado"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Filme alugado com sucesso."
+            },
+            "400": {
+              "description": "Erro ao alugar o filme."
+            }
+          }
+        }
+      },
+      "/movies/{movie_id}/rate": {
+        "post": {
+          "summary": "Avaliar um filme alugado",
+          "description": "Permite que um usuário avalie um filme que ele alugou.",
+          "parameters": [
+            {
+              "name": "movie_id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID do filme"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "rating": {
+                    "type": "number"
+                  }
+                }
+              },
+              "description": "JSON com user_id e rating"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Avaliação registrada com sucesso."
+            },
+            "400": {
+              "description": "Erro ao avaliar o filme."
+            }
+          }
+        }
+      },
+      "/user/{user_id}/rents": {
+        "get": {
+          "summary": "Visualizar filmes alugados por um usuário",
+          "description": "Lista todos os filmes alugados por um usuário, incluindo avaliações.",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID do usuário"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lista de filmes alugados retornada com sucesso."
+            },
+            "404": {
+              "description": "Usuário não encontrado."
+            }
+          }
+        }
+      }
+    }
+  }
+  

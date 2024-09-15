@@ -1,5 +1,4 @@
-from random import randint
-from .schema import Movie, User, Rental
+from .schema import Movie, User
 
 def create_mock_users():
     users = []
@@ -7,13 +6,13 @@ def create_mock_users():
     users_data = [
         {
             'id': 1,
-            'name': 'Lucas Almeida',
-            'phone': '881111111',
+            'name': 'Lucas Nogueira',
+            'phone': '8811111111',
             'email': 'email@mock.com',
         },
         {
             'id': 2,
-            'name': 'Lucas Almeida 2',
+            'name': 'Lucas Ferreira',
             'phone': '8822222222',
             'email': 'email@mock.com2',
         },
