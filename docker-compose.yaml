@@ -1,0 +1,30 @@
+services:
+  web:
+    build: .
+    container_name: flask_web
+    ports:
+      - "5000:5000"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: movies_db
+      POSTGRES_HOST: db  # Certifique-se de que o host seja "db"
+    depends_on:
+      - db  # Web depende do serviço 'db'
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: movies_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
