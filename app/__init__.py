@@ -9,13 +9,11 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    # Configurações do banco de dados (desabilitado por enquanto)
+    app.url_map.strict_slashes = False
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # Registrar o Blueprint das rotas da API
     app.register_blueprint(bp)
 
-    # Configuração do Swagger UI
     SWAGGER_URL = '/swagger'
     API_URL = "/swagger/swagger.json"
 
@@ -25,16 +23,13 @@ def create_app():
         config={'app_name': "API FilmesTop"}
     )
 
-    # Registrar o Blueprint do Swagger
     app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
-    # Retornar a aplicação Flask configurada
 
     @app.route("/swagger/swagger.json")
     def specs():
         return send_from_directory(os.path.join(os.getcwd(), "static"), "swagger.json")
     
-    print("Aplicação Flask inicializada com Swagger UI")
     return app
 
 
