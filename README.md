@@ -31,6 +31,23 @@ Esta API permite gerenciar o aluguel e avaliação de filmes.
     python create_db.py
     ```
 
+## Testes
+
+Para garantir que todas as funcionalidades da API estejam funcionando corretamente, você pode rodar os testes automatizados. Siga as instruções abaixo para executar os testes:
+
+1. **Certifique-se de que todas as dependências estão instaladas:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **No diretório raiz do projeto, execute o seguinte comando para rodar os testes usando pytest:**
+  ```bash
+  pytest
+  ```
+
+Dessa forma, o pytest executará todos os testes localizados em test_routes.py.
+
 ## Execução
 
 1. **Executar o Servidor:**
