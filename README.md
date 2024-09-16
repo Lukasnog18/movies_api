@@ -26,7 +26,10 @@ Esta API permite gerenciar o aluguel e avaliação de filmes.
 ## Configuração
 
 - **Banco de Dados:**
-  Por padrão, o projeto usa um banco de dados mockado. Para inicializar o banco de dados e adicionar dados mock, execute o script create_db.py: python create_db.py
+  Por padrão, o projeto usa um banco de dados mockado. Para inicializar o banco de dados e adicionar dados mock, execute o script create_db.py:
+    ```bash
+    python create_db.py
+    ```
 
 ## Execução
 
