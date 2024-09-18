@@ -82,18 +82,21 @@ def get_user_rents(user_id):
         return jsonify({'error': 'User not found'}), 404
 
     rents = db.session.query(rental_table).filter_by(user_id=user_id).all()
-    rented_movies = [{
-        'movie_id': rent.movie_id,
-        'rating': rent.rating,
-        'rental_date': rent.rental_date,
-        'movie_details': {
-            'title': Movie.query.get(rent.movie_id).title,
-            'genre': Movie.query.get(rent.movie_id).genre,
-            'year': Movie.query.get(rent.movie_id).year,
-            'synopsis': Movie.query.get(rent.movie_id).synopsis,
-            'director': Movie.query.get(rent.movie_id).director
-        }
-    } for rent in rents]
+    rented_movies = []
+    for rent in rents:
+        movie = Movie.query.get(rent.movie_id)
+        rented_movies.append({
+            'movie_id': rent.movie_id,
+            'rating': rent.rating,
+            'rental_date': rent.rental_date,
+            'movie_details': {
+                'title': movie.title,
+                'genre': movie.genre,
+                'year': movie.year,
+                'synopsis': movie.synopsis,
+                'director': movie.director
+            }
+        })
 
     return jsonify(rented_movies)
 
