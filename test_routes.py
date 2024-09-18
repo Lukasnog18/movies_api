@@ -11,10 +11,8 @@ class TestBase(TestCase):
         return app
 
     def setUp(self):
-        """Configura o ambiente de teste antes de cada teste"""
         db.create_all()
 
-        # Adiciona dados iniciais de teste
         user1 = User(id=1, name='Lucas Nogueira', phone='8811111111', email='email@mock.com')
         user2 = User(id=2, name='Lucas Ferreira', phone='8822222222', email='email@mock.com2')
         db.session.add(user1)
@@ -27,14 +25,12 @@ class TestBase(TestCase):
         db.session.commit()
 
     def tearDown(self):
-        """Limpa o ambiente de teste após cada teste"""
         db.session.remove()
         db.drop_all()
 
 class TestMovieAPI(TestBase):
 
     def test_get_movies(self):
-        """Testa a rota para obter filmes por gênero"""
         response = self.client.get('/movies/Action')
         self.assert200(response)
         self.assertIn('id', response.json[0])
@@ -42,27 +38,23 @@ class TestMovieAPI(TestBase):
         self.assertIn('genre', response.json[0])
 
     def test_rent_movie(self):
-        """Testa a rota para alugar um filme"""
         response = self.client.post('/rent/1/1')
         self.assert200(response)
         self.assertEqual(response.json['message'], 'Movie 1 rented successfully by user 1')
 
     def test_rent_movie_already_rented(self):
-        """Testa a tentativa de alugar um filme já alugado"""
         self.client.post('/rent/1/1')
         response = self.client.post('/rent/1/1')
         self.assert400(response)
         self.assertEqual(response.json['error'], 'Movie already rented by this user')
 
     def test_rate_movie(self):
-        """Testa a rota para avaliar um filme"""
         self.client.post('/rent/1/1')
         response = self.client.post('/movies/1/rate', json={'user_id': 1, 'rating': 5})
         self.assert200(response)
         self.assertEqual(response.json['message'], 'Movie 1 rated 5 successfully by user 1')
 
     def test_get_user_rents(self):
-        """Testa a rota para obter os aluguéis de um usuário"""
         self.client.post('/rent/1/1')
         response = self.client.get('/user/1/rents')
         self.assert200(response)
