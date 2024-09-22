@@ -8,9 +8,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: movies_db
-      POSTGRES_HOST: db  # Certifique-se de que o host seja "db"
+      POSTGRES_HOST: db
     depends_on:
-      - db  # Web depende do serviço 'db'
+      - db
     volumes:
       - .:/app
 
